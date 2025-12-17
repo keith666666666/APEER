@@ -5,7 +5,7 @@
 ![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2-6DB33F?style=for-the-badge&logo=spring-boot)
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=for-the-badge&logo=postgresql)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-4169E1?style=for-the-badge&logo=postgresql)
 
 **Fair. Efficient. Intelligent.**
 
@@ -67,9 +67,9 @@ APEER is a modern, full-stack peer evaluation system designed for educational in
 | Component | Technology |
 |-----------|-----------|
 | **Frontend** | React 18, Vite, Tailwind CSS, Framer Motion |
-| **Backend** | Spring Boot 3.2, Java 17, PostgreSQL 16 |
+| **Backend** | Spring Boot 3.2, Java 17, PostgreSQL 18 |
 | **AI Service** | Flask 3.0, Python 3.11, PyTorch, Transformers |
-| **Database** | PostgreSQL 16 |
+| **Database** | PostgreSQL 18 |
 | **Authentication** | OAuth2 (Google), JWT |
 
 ---
@@ -112,7 +112,7 @@ APEER/
 - **Node.js** 18+ (for frontend)
 - **Java** 17+ (for backend)
 - **Python** 3.11+ (for AI service)
-- **PostgreSQL** 16+ (for database)
+- **PostgreSQL** 18+ (for database)
 - **Maven** 3.9+ (for backend)
 
 ### 1. Frontend Setup

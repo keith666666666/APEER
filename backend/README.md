@@ -4,7 +4,7 @@
 
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2-6DB33F?style=for-the-badge&logo=spring-boot)
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=for-the-badge&logo=postgresql)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-4169E1?style=for-the-badge&logo=postgresql)
 
 **RESTful API with JWT Security & Microservice Integration**
 
@@ -86,7 +86,7 @@ The APEER backend is a robust Spring Boot application that serves as the core bu
 | Framework         | Spring Boot 3.2.0              |
 | Language          | Java 17 (LTS)                  |
 | Security          | Spring Security + OAuth2       |
-| Database          | PostgreSQL 16                  |
+| Database          | PostgreSQL 18                  |
 | ORM               | Hibernate (JPA)                |
 | Build Tool        | Maven 3.9                      |
 | API Documentation | SpringDoc OpenAPI (Swagger)    |
@@ -190,7 +190,7 @@ backend/
 
 - **Java 17** (OpenJDK or Oracle JDK)
 - **Maven 3.9+**
-- **PostgreSQL 16+**
+- **PostgreSQL 18+**
 
 ### Clone and Build
 
