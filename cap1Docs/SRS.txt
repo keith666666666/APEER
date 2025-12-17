@@ -1,0 +1,159 @@
+CEBU INSTITUTE OF TECHNOLOGY - UNIVERSITYCOLLEGE OF COMPUTER STUDIES
+Software Requirements Specification (SRS)APEER 
+an
+ AI Self and Peer Evaluation System
+Team Members:Bajamunde, Louie V.Magpatoc, Mark Andrew G.Queddeng, James Adriane S.Rigodon, Keith Yancy A.Tabungar, Steven Jan M.
+Date of Submission: November 03, 2025Document Version: 3.0Change History: Initial Draft
+Table of Contents
+1. Introduction
+    1.1 Purpose
+    1.2 Scope
+    1.3 Definitions, Acronyms, and Abbreviations
+    1.4 References
+2. Overall Description
+    2.1 Product Perspective
+    2.2 Modular Decomposition
+    2.3 User Characteristics
+    2.4 Constraints
+    2.5 Assumptions and Dependencies
+3. Specific Requirements
+    3.1 External Interface Requirements
+    3.2 Functional Requirements
+    3.3 Non-Functional Requirements
+1. Introduction
+1.1 Purpose 
+The AI Self and Peer Evaluation System (APEER) aims to provide a fair, efficient, and intelligent evaluation process for students in academic settings. This document specifies the functional and non-functional requirements of the AI Self and Peer Evaluation System (APEER). It serves as a baseline for system design, development, testing, and evaluation.
+1.2 Scope 
+APEER is a web-based platform where students conduct self- and peer-evaluations, and teachers access summarized reports. The system features:
+AI Modules that analyze comments, classify quality, compute sentiment/usefulness, and produce concise summaries.
+Dashboards for students to view personal feedback and teachers to monitor class performance.
+Integration with Google APIs for secure authentication and cloud storage.
+1.3 Definitions, Acronyms and Abbreviations
+SRS – Software Requirements Specification
+NLP – Natural Language Processing
+AI – Artificial Intelligence
+CIT-U – Cebu Institute of Technology – University
+JWT – JSON Web Token
+OAuth2 – Open Authorization 2.0
+1.4 References
+Kulkarni, C., et al. (2024). EvaluMate: Using AI to support students’ feedback provision...
+Ma, Y., et al. (2022). PeerBERT: Automated characterization of peer review comments.
+Topping, K., et al. (2025). Enhancing peer assessment with artificial intelligence.
+Philippine Data Privacy Act of 2012 (RA 10173).
+2. Overall Description
+2.1 Product Perspective APEER is a modular web-based platform composed of AI microservices and dashboard modules. It integrates with Google OAuth2 for authentication and cloud storage. The system processes peer evaluation text, classifies comments, performs sentiment/usefulness analysis, and generates summaries for teacher and student review.
+2.2 Modular Decomposition
+Module 1: AI Comment Classification
+Module 2: Sentiment and Usefulness Analysis
+Module 3: AI Feedback Summarization
+Module 4: Student Dashboard
+Module 5: Teacher Dashboard
+Module 6: Evaluation Management and Reporting
+Module 7: Authentication and Security
+Module 8: System User Monitoring (Administrative)
+2.3 User Characteristics
+Students: Grade- and course-level learners who will provide and receive peer/self-evaluations.
+Teachers: Educators who will create evaluation activities, monitor feedback quality, and export reports.
+Administrators: Users who manage system settings and institution-level integrations.
+2.4 Constraints
+Requires stable internet connectivity.
+AI accuracy relies on the quality of the training data.
+Integration requires Google API access for OAuth and storage.
+3. Specific Requirements
+3.1 External Interface Requirements
+Hardware: Compatible with desktops, laptops, and tablets with at least 2GB RAM.
+Software: Frontend (React.js), Backend (Spring Boot), Database (PostgreSQL), AI (Python).
+Communications: RESTful APIs over HTTPS with JWT-based session management.
+3.2 Functional Requirements
+Module 1: AI Comment Classification
+Transaction 1.1: Automated Comment Tagging
+Case Diagram:
+Use Case Description: The system automatically preprocesses student comments upon submission to detect relevance and quality. It tags comments with labels such as constructive, vague, or off-topic using NLP models.
+Use Case Example:
+Student submits a peer review.
+System tokenizes the text.
+System assigns the tag "Constructive" to the comment.
+Activity Diagram:
+Wireframe:
+Module 2: Sentiment and Usefulness Analysis
+Transaction 2.1: Quality Scoring & Filtering
+Case Diagram:
+Use Case Description: The system evaluates every individual comment to determine its emotional tone (Sentiment) and constructive quality (Usefulness Score). Low-quality comments are automatically filtered out or flagged for teacher review.
+Use Case Example:
+System analyzes text polarity.
+System calculates a Usefulness Score (e.g., 85/100).
+If score < 40, comment is flagged as "Low Usefulness".
+Activity Diagram:
+Wireframe:
+Module 3: AI Feedback Summarization
+Transaction 3.1: Feedback Aggregation
+Case Diagram:
+Use Case Description: The system aggregates all qualified comments for a specific student and uses Natural Language Processing to generate a single cohesive report, categorizing insights into Strengths, Weaknesses, and Common Themes.
+Use Case Example:
+System retrieves 20 comments for Student A.
+AI identifies that 15 comments mention "Good Leadership."
+System generates the summary sentence: "Peers consistently praised your leadership skills."
+Activity Diagram:
+Wireframe:
+Module 4: Student Dashboard
+Transaction 4.1: Performance View
+Use Case Diagram:
+Use Case Description: Students view their personal feedback summaries, sentiment trends, and AI-generated improvement suggestions in a centralized dashboard.
+Use Case Example:
+Student logs in.
+Student views "Evaluation History."
+Student expands the "AI Insights" card to read specific improvement tips.
+Activity Diagram:
+Wireframe:
+Module 5: Teacher Dashboard
+Transaction 5.1: Class Analytics
+Use Case Diagram:
+Use Case Description: Teachers monitor class performance, view bias detection flags, and analyze sentiment distribution across the class to ensure fair grading.
+Use Case Example:
+Teacher navigates to "Class Analytics."
+Teacher views the "Participation Rate" chart.
+System highlights 3 evaluations as "Potentially Biased."
+Wireframe:
+Module 6: Evaluation Management
+Transaction 6.1: Activity Creation
+Use Case Diagram:
+Use Case Description: Teachers create and configure peer evaluation activities by setting titles, deadlines, rubrics, and assigning student groups.
+Use Case Example:
+Teacher clicks "Create Evaluation."
+Teacher selects "Teamwork Rubric."
+Teacher sets deadline to "Nov 20" and publishes the activity.
+Wireframe (Teacher View):
+Transaction 6.2: Submission (Student View)
+Wireframe (Student View):
+Module 7: Authentication and Security
+Transaction 7.1: User Access & Registration
+Use Case Diagram:
+Use Case Description: Secure access control allowing students and teachers to register and login using their Google Workspace credentials via OAuth2. The system verifies roles (Student vs. Teacher) automatically.
+Use Case Example:
+User clicks "Sign in with Google."
+System authenticates via Google API.
+System checks email domain and redirects user to the correct dashboard.
+Activity Diagram:
+Wireframe:
+Module 8: System User Monitoring
+Transaction 8.1: Administrative / Maintenance
+Use Case Diagram:
+Use Case Description: This use case allows the administrator to monitor registered users within the system for maintenance and access control purposes. The administrator can view a list of students and instructors who have accessed or are registered in the system. No evaluation data or AI-generated content is accessible.
+Use Case Example:
+The administrator logs into the system using valid credentials.
+The system verifies the administrator’s identity and role.
+The system displays a list of registered users, including students and instructors.
+The administrator reviews user information such as name, role, and account status.
+The administrator logs out of the system.
+Activity Diagram:
+Wireframe:
+3.3 Non-Functional Requirements
+Performance
+System response time under 2 seconds for standard operations.
+Support 500+ concurrent users; AI microservices auto-scale.
+Security
+Role-Based Access Control (RBAC): Strict separation between Admin, Teacher, and Student data.
+Encryption: TLS/SSL for data in transit; encryption at rest.
+Compliance: Full compliance with the Philippine Data Privacy Act (RA 10173).
+Reliability
+The system shall maintain at least 99% uptime during academic terms.

@@ -1,0 +1,255 @@
+CEBU INSTITUTE OF TECHNOLOGY - UNIVERSITYCOLLEGE OF COMPUTER STUDIES
+Software Design Description (SDD)
+APEER 
+an
+ AI Self and Peer Evaluation System
+Team Members:Bajamunde, Louie V.Magpatoc, Mark Andrew G.Queddeng, James Adriane S.Rigodon, Keith Yancy A.Tabungar, Steven Jan M.
+Date of Submission: November 03, 2025Document Version: 1.0Change History: Initial Draft
+Preface
+Purpose of the Document The purpose of this document is to define the design decisions, system architecture, and data flow of APEER, ensuring a clear understanding for developers, testers, and stakeholders. It serves as a reference for the implementation, integration, and maintenance of the system.
+Intended Audience This document is intended for:
+Developers – To implement the system based on the architecture and component specifications.
+Testers – To validate system behavior and ensure it meets design requirements.
+Capstone Adviser – To review and guide the project’s technical and design aspects.
+Scope of the System APEER is a web-based evaluation platform designed to:
+Automate the collection and analysis of peer and self-evaluations.
+Use Artificial Intelligence (NLP) to classify comments, detect sentiment, and summarize feedback.
+Provide dashboards for students (personal growth) and teachers (class analytics/bias detection).
+Operate as a standalone system integrated with Google Workspace.
+1. Introduction
+1.1. Purpose The AI Self and Peer Evaluation System (APEER) aims to provide a fair, efficient, and intelligent evaluation process for students in academic settings. The system leverages Natural Language Processing (NLP) to analyze, summarize, and evaluate peer and self-assessments, ensuring constructive and unbiased feedback.
+1.2. Scope The system includes modules for AI Comment Classification, Sentiment Analysis, Feedback Summarization, and Dashboards for both students and teachers. It integrates with Google OAuth2 for security and uses a Microservice Architecture to handle AI processing.
+1.3. Definitions and Acronyms
+DTO: Data Transfer Object
+NLP: Natural Language Processing
+JWT: JSON Web Token
+RBAC: Role-Based Access Control
+1.4. References
+Kulkarni, C., et al. (2024). EvaluMate: Using AI to support students’ feedback provision...
+APEER Software Requirements Specification (SRS), Version 3.0.
+2. Architectural Design
+APEER System Architecture
+Detailed Design
+Module 1: AI Comment Classification
+3.1 Transaction: Automated Comment Tagging
+User Interface Design
+Front-end component(s)
+Component Name: EvaluationForm.jsx
+Description: The primary interface for students to submit peer feedback. It includes a text area with real-time validation to ensure comments meet the minimum character count before submission. It handles the display of success messages or error alerts upon submission.
+Component Type or Format: React.js Component
+Component Name: evaluationService.js
+Description: A JavaScript module responsible for handling all HTTP requests related to evaluation submissions. It uses Axios to send data to the backend and handle responses asynchronously.
+Component Type or Format: JavaScript Service Module (Axios-based API service)
+Exposed Functions:
+submitEvaluation(evaluationData): Sends the student's feedback payload (target student ID, comment text, rubric scores) to the backend.
+validateSubmission(text): Client-side helper to check if the comment length meets the requirement (e.g., > 20 characters).
+Back-end Components
+Back-end component(s)
+Component Name: EvaluationController.java
+Description: Exposes REST API endpoints to receive evaluation submissions. It validates the incoming DTO, triggers the classification service, and returns the processing status to the client.
+Component Type or Format: Spring Boot REST Controller
+Component Name: EvaluationService.java
+Description: Contains the business logic for saving evaluations. It orchestrates the call to the AI Microservice for classification and persists the result in the database.
+Component Type or Format: Spring Boot Service Class
+Component Name: EvaluationSubmissionDTO.java
+Description: A Data Transfer Object used to encapsulate the submission data sent from the frontend. Contains fields for studentId, targetId, rubricScores, and commentContent.
+Component Type or Format: Java Spring Boot Data Transfer Object (DTO)
+Component Name: AIServiceIntegration.java
+Description: A specialized service that acts as a bridge to the Python AI Microservice. It sends raw text via HTTP POST and receives classified tags (e.g., "Constructive", "Vague").
+Component Type or Format: Spring Boot Service Class
+Component Name: Comment.java
+Description: Represents the database entity for a single comment. Stores the content, timestamp, and the list of tags assigned by the AI.
+Component Type or Format: Java Spring Boot Entity (PostgreSQL Table)
+Object-Oriented Components
+Class Diagram
+Sequence Diagram
+Data Design
+Module 2: Sentiment and Usefulness Analysis
+3.2 Transaction: Quality Scoring
+User Interface Design
+Front-end component(s)
+Component Name: FeedbackQualityIndicator.jsx
+Description: A visual component used in the Teacher Dashboard to display the quality score of a comment. It renders a color-coded bar (Green/Yellow/Red) based on the "Usefulness Score" returned by the backend.
+Component Type or Format: React.js Component
+Back-end Components
+Back-end component(s)
+Component Name: SentimentAnalysisService.java
+Description: Orchestrates the analysis workflow. It retrieves unanalyzed comments from the database and sends them to the Python Microservice for scoring.
+Component Type or Format: Spring Boot Service Class
+Component Name: CommentAnalyticsDTO.java
+Description: DTO used to transfer analysis results between the AI service and the backend. Contains polarityScore (Float), usefulnessScore (Integer), and flaggedStatus (Boolean).
+Component Type or Format: Java Spring Boot Data Transfer Object (DTO)
+Component Name: SentimentAnalyzer.py (Python)
+Description: A Python script running within the Flask microservice. It utilizes libraries like TextBlob or VADER to calculate sentiment polarity and custom logic to compute a "Usefulness Score" (0-100).
+Component Type or Format: Python Script (Flask Endpoint)
+Component Name: Analytics.java
+Description: Entity class that stores the numerical analysis results linked to a specific Comment entity.
+Component Type or Format: Java Spring Boot Entity (PostgreSQL Table)
+Object-Oriented Components
+Class Diagram
+Sequence Diagram 
+Data Design
+Module 3: AI Feedback Summarization
+3.3 Transaction: Feedback Aggregation
+User Interface Design
+Front-end component(s)
+Component Name: FeedbackSummaryCard.jsx
+Description: A UI card component that displays the AI-generated summary. It organizes text into "Strengths," "Weaknesses," and "Key Themes" for easy reading by the student.
+Component Type or Format: React.js Component
+Component Name: summaryService.js
+Description: Handles API calls to fetch the generated summary for a specific student.
+Component Type or Format: JavaScript Service Module
+Exposed Functions:
+getStudentSummary(studentId): Retrieves the pre-calculated summary JSON object for the logged-in student.
+Back-end Components
+Back-end component(s)
+Component Name: SummarizationService.java
+Description: Responsible for aggregating all "Valid" comments for a target student and preparing them for the AI model. It filters out low-quality comments before processing.
+Component Type or Format: Spring Boot Service Class
+Component Name: SummaryReportDTO.java
+Description: Encapsulates the generated summary sections (strengths, weaknesses, suggestions) to be sent to the frontend.
+Component Type or Format: Java Spring Boot Data Transfer Object (DTO)
+Component Name: NLPController.py (Python)
+Description: The AI endpoint that accepts a list of comment strings and uses a Transformer model (e.g., BART/T5) to generate a cohesive abstractive summary.
+Component Type or Format: Python Flask Controller
+Object-Oriented Components
+Class Diagram
+Sequence Diagram
+Data Design
+Module 4: Student Dashboard
+3.4 Transaction: Performance View
+User Interface Design
+Front-end component(s)
+Component Name: StudentDashboard.jsx
+Description: The main landing page for students. It acts as a container for various widgets, including the ScoreChart, FeedbackSummaryCard, and EvaluationHistory.
+Component Type or Format: React.js Component
+Component Name: dashboardService.js
+Description: Fetches all necessary metrics for the dashboard in a single or parallel API call.
+Component Type or Format: JavaScript Service Module
+Exposed Functions:
+getDashboardMetrics(studentId): Fetches average scores, completion rates, and recent activity.
+getSentimentTrend(studentId): Retrieves historical sentiment data for visualization.
+Back-end Components
+Back-end component(s)
+Component Name: StudentDashboardController.java
+Description: Exposes read-only endpoints specifically aggregated for the student view.
+Component Type or Format: Spring Boot REST Controller
+Component Name: AnalyticsService.java
+Description: Computes statistical averages and trends from raw evaluation data stored in the database.
+Component Type or Format: Spring Boot Service Class
+Component Name: DashboardMetricsDTO.java
+Description: A DTO containing aggregated fields like overallScore, participationRate, and sentimentHistory list.
+Component Type or Format: Java Spring Boot DTO
+Object-Oriented Components
+Class Diagram
+Sequence Diagram
+Data Design
+Module 5: Teacher Dashboard
+3.5 Transaction: Class Analytics
+User Interface Design
+Front-end component(s)
+Component Name: ClassOverview.jsx
+Description: Displays a data table of all students in a class, with sortable columns for "Participation Rate," "Average Score," and "Bias Flags."
+Component Type or Format: React.js Component
+Component Name: BiasAlert.jsx
+Description: A UI badge or icon that appears next to a student's name if their evaluation scores are statistically anomalous (outliers).
+Component Type or Format: React.js Component
+Component Name: teacherDashboardService.js
+Description: Service module for fetching class-wide analytics.
+Component Type or Format: JavaScript Service Module
+Exposed Functions:
+getClassAnalytics(classId): Returns aggregated data for the entire class.
+getFlaggedEvaluations(classId): Returns a list of evaluations flagged for potential bias.
+Back-end Components
+Back-end component(s)
+Component Name: TeacherAnalyticsController.java
+Description: Secure endpoints accessible only by users with the ROLE_TEACHER authority.
+Component Type or Format: Spring Boot REST Controller
+Component Name: BiasDetectionService.java
+Description: Implements statistical algorithms (e.g., Standard Deviation checks) to identify scores that deviate significantly from the class norm.
+Component Type or Format: Spring Boot Service Class
+Component Name: ClassAnalyticsDTO.java
+Description: Carries class-level metrics such as classAverage, submissionCount, and a list of StudentPerformanceSummary objects.
+Component Type or Format: Java Spring Boot DTO
+Object-Oriented Components
+Class Diagram
+Sequence Diagram
+Data Design
+Module 6: Evaluation Management
+3.6 Transaction: Activity Creation
+User Interface Design
+Front-end component(s)
+Component Name: CreateActivityForm.jsx
+Description: A form interface where teachers can define a new evaluation event. Inputs include "Activity Title," "Deadline," "Rubric Selection," and "Target Group."
+Component Type or Format: React.js Component
+Component Name: activityService.js
+Description: Handles the creation and management of evaluation activities.
+Component Type or Format: JavaScript Service Module
+Exposed Functions:
+createActivity(activityData): POST request to create a new evaluation event.
+getRubrics(): Fetches available rubrics for the teacher to select.
+Back-end Components
+Back-end component(s)
+Component Name: ActivityController.java
+Description: Handles POST requests to create new evaluation events and assigns them to student groups.
+Component Type or Format: Spring Boot REST Controller
+Component Name: EvaluationActivity.java
+Description: Entity representing the event itself (e.g., "Midterm Peer Review"), including metadata like deadline and active status.
+Component Type or Format: Java Spring Boot Entity
+Component Name: Rubric.java
+Description: Entity representing the scoring criteria (e.g., "Teamwork", "Communication") used in an activity.
+Component Type or Format: Java Spring Boot Entity
+Object-Oriented Components
+Class Diagram
+Sequence Diagram
+Data Design
+Module 7: Authentication and Security
+3.7 Transaction: User Access
+User Interface Design
+Front-end component(s)
+Component Name: LoginButton.jsx
+Description: A component that initiates the OAuth2 flow by redirecting the user to the Google Consent Screen.
+Component Type or Format: React.js Component
+Component Name: authService.js
+Description: Manages authentication state, token storage (localStorage), and logout functionality.
+Component Type or Format: JavaScript Service Module
+Exposed Functions:
+loginWithGoogle(authCode): Sends the Google authorization code to the backend to exchange for a JWT.
+logout(): Clears the stored JWT and redirects to the login page.
+Back-end Components
+Back-end component(s)
+Component Name: OAuthController.java
+Description: Handles the callback from Google, verifies the email domain (@cit.edu), creates the user if they don't exist, and issues the system JWT.
+Component Type or Format: Spring Boot REST Controller
+Component Name: JwtUtil.java
+Description: Utility class for generating, signing, and validating JSON Web Tokens (JWT) used for session management.
+Component Type or Format: Java Utility Class
+Component Name: UserDTO.java
+Description: DTO returned upon successful login, containing token, email, role, and name.
+Component Type or Format: Java Spring Boot DTO
+Object-Oriented Components
+Class Diagram
+Sequence Diagram
+Data Design
+Module 8: System User Monitoring
+3.8 Transaction: Administrative User Monitoring
+User Interface Design
+Front-End Component(s)
+Component Name: AdminUserList.jsx
+Description: A simple administrative interface that displays a list of registered system users. The interface presents non-sensitive user information such as name, email address, role (Student or Teacher), and account status (Active or Inactive). The administrator can activate or deactivate user accounts as part of access control and maintenance.
+Component Type or Format: React.js Component
+Back-End Components
+Back-End Component(s)
+Component Name: AdminController.java
+Description: Provides secure REST endpoints accessible only to users with the ROLE_ADMIN authority. Handles requests for retrieving user lists and updating account status. The controller enforces strict access boundaries to prevent administrative access to evaluation or AI-related resources.
+Component Type or Format: Spring Boot REST Controller
+Component Name: AdminService.java
+Description: Implements business logic for fetching user metadata and updating account activation status. Ensures that administrative actions are restricted to user account management only.
+Component Type or Format: Spring Boot Service Class
+Component Name: UserSummaryDTO.java
+Description: A lightweight Data Transfer Object used to expose non-sensitive user information to the administrator interface. Fields include userId, name, email, role, and accountStatus.
+Component Type or Format: Java Spring Boot Data Transfer Object (DTO)
+Component Name: User.java
+Description: Existing system entity representing registered users. This module interacts only with authentication-related attributes such as role and account status.
+Component Type or Format: Java Spring Boot Entity
+Administrative User Monitoring – Use Case Diagram

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
 import { 
   Sparkles, TrendingUp, Shield, Users, LogIn, 
-  ChevronRight, CheckCircle2, Target, Zap, Brain
+  ChevronRight, CheckCircle2, Target, Zap, Brain, AlertCircle
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/ui/Button';
@@ -14,26 +15,77 @@ import { Input } from '../components/ui/Input';
 // LANDING PAGE
 // ============================================================================
 const LandingPage = () => {
-  const { login, register } = useAuth();
+  const { login, register, loginWithGoogle, error: authError } = useAuth();
   const navigate = useNavigate();
   const [showAuth, setShowAuth] = useState(false);
   const [authMode, setAuthMode] = useState('login'); // 'login' or 'register'
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [selectedRole, setSelectedRole] = useState('student');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleLogin = () => {
-    if (email) {
-      login(email);
-      navigate('/student');
+  /**
+   * Handle successful Google authentication
+   */
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      const result = await loginWithGoogle(credentialResponse.credential);
+
+      if (result.success) {
+        // Redirect based on role
+        const route = result.role === 'admin' ? '/admin' 
+                   : result.role === 'teacher' ? '/teacher' 
+                   : '/student';
+        navigate(route);
+        setShowAuth(false);
+      } else {
+        setError(result.error);
+        setIsLoading(false);
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
+      setIsLoading(false);
     }
   };
 
-  const handleRegister = () => {
+  /**
+   * Handle Google authentication error
+   */
+  const handleGoogleError = () => {
+    setError('Google Sign-In failed. Please try again.');
+    setIsLoading(false);
+  };
+
+  const handleLogin = async () => {
+    if (email) {
+      try {
+        setIsLoading(true);
+        await login(email);
+        navigate('/student');
+      } catch (error) {
+        console.error('Login failed:', error);
+        setError('Login failed. Please try again.');
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const handleRegister = async () => {
     if (email && name && selectedRole) {
-      register(email, name, selectedRole);
-      const route = selectedRole === 'student' ? '/student' : '/teacher';
-      navigate(route);
+      try {
+        setIsLoading(true);
+        await register(email, name, selectedRole);
+        const route = selectedRole === 'student' ? '/student' : '/teacher';
+        navigate(route);
+      } catch (error) {
+        console.error('Registration failed:', error);
+        setError('Registration failed. Please try again.');
+        setIsLoading(false);
+      }
     }
   };
 
@@ -250,22 +302,101 @@ const LandingPage = () => {
               {authMode === 'login' ? (
                 <>
                   <h2 className="auth-form-title">Welcome Back</h2>
-                  <Input
-                    label="Email"
-                    type="email"
-                    placeholder="your.email@cit.edu"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <p className="auth-helper-text mt-2">
-                    Use "student", "teacher", or "admin" in your email for demo
-                  </p>
-                  <div className="auth-actions">
-                    <Button className="flex-1" onClick={handleLogin}>
-                      <LogIn className="w-4 h-4 mr-2" />
-                      Sign In
+                  
+                  {/* Error Message */}
+                  {(error || authError) && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl"
+                    >
+                      <div className="flex items-start gap-3">
+                        <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                          <p className="text-red-400 text-sm font-medium mb-1">Authentication Error</p>
+                          <p className="text-red-300 text-xs">{error || authError}</p>
+                          {(error || authError)?.includes('backend') && (
+                            <p className="text-red-200 text-xs mt-2">
+                              Make sure to run: <code className="bg-red-500/20 px-2 py-1 rounded">cd backend && mvn spring-boot:run</code>
+                            </p>
+                          )}
+                          {(error || authError)?.includes('OAuth') && (
+                            <p className="text-red-200 text-xs mt-2">
+                              Add <code className="bg-red-500/20 px-2 py-1 rounded">http://localhost:5173</code> and <code className="bg-red-500/20 px-2 py-1 rounded">http://localhost:5174</code> to Google Cloud Console
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Google Sign-In Button */}
+                  {import.meta.env.VITE_GOOGLE_CLIENT_ID && (
+                    <div className="mb-6">
+                      <div className="flex justify-center">
+                        <div className="google-signin-wrapper">
+                          <GoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={handleGoogleError}
+                            useOneTap={false}
+                            theme="filled_blue"
+                            size="large"
+                            text="signin_with"
+                            shape="rectangular"
+                            logo_alignment="left"
+                          />
+                        </div>
+                      </div>
+                      <p className="text-center text-xs text-gray-500 mt-4">
+                        Sign in with your institutional Google account
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Divider */}
+                  <div className="relative my-6">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-white/10"></div>
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                      <span className="px-4 bg-gray-900 text-gray-500">or</span>
+                    </div>
+                  </div>
+
+                  {/* Fallback Email Login (for development) */}
+                  <div className="space-y-4">
+                    <Input
+                      label="Email (Development Only)"
+                      type="email"
+                      placeholder="your.email@cit.edu"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={isLoading}
+                    />
+                    <p className="auth-helper-text">
+                      Use "student", "teacher", or "admin" in your email for demo
+                    </p>
+                    <Button 
+                      className="w-full" 
+                      onClick={handleLogin}
+                      disabled={isLoading || !email}
+                    >
+                      {isLoading ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                          Signing in...
+                        </>
+                      ) : (
+                        <>
+                          <LogIn className="w-4 h-4 mr-2" />
+                          Sign In with Email
+                        </>
+                      )}
                     </Button>
-                    <Button variant="ghost" onClick={() => setShowAuth(false)}>
+                  </div>
+
+                  <div className="auth-actions mt-4">
+                    <Button variant="ghost" onClick={() => setShowAuth(false)} className="w-full">
                       Cancel
                     </Button>
                   </div>
@@ -273,19 +404,85 @@ const LandingPage = () => {
               ) : (
                 <>
                   <h2 className="auth-form-title">Create Account</h2>
+                  
+                  {/* Error Message */}
+                  {(error || authError) && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl"
+                    >
+                      <div className="flex items-start gap-3">
+                        <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                          <p className="text-red-400 text-sm font-medium mb-1">Authentication Error</p>
+                          <p className="text-red-300 text-xs">{error || authError}</p>
+                          {(error || authError)?.includes('backend') && (
+                            <p className="text-red-200 text-xs mt-2">
+                              Make sure to run: <code className="bg-red-500/20 px-2 py-1 rounded">cd backend && mvn spring-boot:run</code>
+                            </p>
+                          )}
+                          {(error || authError)?.includes('OAuth') && (
+                            <p className="text-red-200 text-xs mt-2">
+                              Add <code className="bg-red-500/20 px-2 py-1 rounded">http://localhost:5173</code> and <code className="bg-red-500/20 px-2 py-1 rounded">http://localhost:5174</code> to Google Cloud Console
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Google Sign-In Button */}
+                  {import.meta.env.VITE_GOOGLE_CLIENT_ID && (
+                    <div className="mb-6">
+                      <div className="flex justify-center">
+                        <div className="google-signin-wrapper">
+                          <GoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={handleGoogleError}
+                            useOneTap={false}
+                            theme="filled_blue"
+                            size="large"
+                            text="signup_with"
+                            shape="rectangular"
+                            logo_alignment="left"
+                          />
+                        </div>
+                      </div>
+                      <p className="text-center text-xs text-gray-500 mt-4">
+                        Sign up with your institutional Google account
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Divider - Only show if Google OAuth is configured */}
+                  {import.meta.env.VITE_GOOGLE_CLIENT_ID && (
+                    <div className="relative my-6">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-white/10"></div>
+                      </div>
+                      <div className="relative flex justify-center text-sm">
+                        <span className="px-4 bg-gray-900 text-gray-500">or</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Fallback Registration (for development) */}
                   <div className="space-y-4">
                     <Input
                       label="Full Name"
                       placeholder="Juan Dela Cruz"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
+                      disabled={isLoading}
                     />
                     <Input
-                      label="Email"
+                      label="Email (Development Only)"
                       type="email"
                       placeholder="your.email@cit.edu"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      disabled={isLoading}
                     />
                     
                     {/* Role Selection */}
@@ -301,6 +498,7 @@ const LandingPage = () => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => setSelectedRole('student')}
+                          disabled={isLoading}
                         >
                           <Users className="auth-role-icon auth-role-icon-student" />
                           <div className="auth-role-label">Student</div>
@@ -314,6 +512,7 @@ const LandingPage = () => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => setSelectedRole('teacher')}
+                          disabled={isLoading}
                         >
                           <Shield className="auth-role-icon auth-role-icon-teacher" />
                           <div className="auth-role-label">Teacher</div>
@@ -326,11 +525,24 @@ const LandingPage = () => {
                     </p>
                   </div>
                   <div className="auth-actions">
-                    <Button className="flex-1" onClick={handleRegister}>
-                      <Sparkles className="w-4 h-4 mr-2" />
-                      Create Account
+                    <Button 
+                      className="flex-1" 
+                      onClick={handleRegister}
+                      disabled={isLoading || !email || !name}
+                    >
+                      {isLoading ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                          Creating account...
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="w-4 h-4 mr-2" />
+                          Create Account
+                        </>
+                      )}
                     </Button>
-                    <Button variant="ghost" onClick={() => setShowAuth(false)}>
+                    <Button variant="ghost" onClick={() => setShowAuth(false)} disabled={isLoading}>
                       Cancel
                     </Button>
                   </div>

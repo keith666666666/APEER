@@ -219,3 +219,20 @@
   @apply flex gap-3 mt-6;
 }
 
+/* Google Sign-In Button Wrapper */
+.google-signin-wrapper {
+  @apply w-full;
+}
+
+/* Override Google button styles to match our design */
+.google-signin-wrapper iframe {
+  @apply w-full;
+}
+
+/* Loading Spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

@@ -1,0 +1,182 @@
+00CEBU INSTITUTE OF TECHNOLOGY UNIVERSITY 
+COLLEGE OF COMPUTER STUDIES
+ 
+Software Project Proposal 
+for 
+APEER
+AI Self and Peer Evaluation System
+APEER - AI Self and Peer Evaluation System
+Team Members:
+Bajamunde, Louie V.
+Magpatoc, Mark Andrew G.
+Queddeng, James Adriane S.
+Rigodon, Keith Yancy A.
+Tabungar, Steven Jan M.
+Adviser: Ralph P. Laviste
+Date of Submission: 
+September 20, 2025
+Executive Summary
+Problem Statement and Proposed Solution
+Problem Statement: Current self- and peer-assessment methods lack fairness, consistency, and effective summarization of student feedback. Many digital tools simply collect responses without ensuring their quality or reducing subjectivity.
+Proposed Solution: The project will develop an AI-powered system that:
+Guides students in giving constructive peer feedback.
+Uses NLP to analyze, classify, and summarize comments.
+Provides sentiment and usefulness analysis to reduce bias.
+Integrates Google APIs for scalability and ease of use.
+Ensures transparency, fairness, and privacy compliance.
+Expected Benefits and Impact
+For Students: Clear, constructive, and fair peer feedback; less overload from long or repetitive comments.
+For Teachers: Automated insights and reduced grading time through summarized reports.
+For Institutions: A transparent, scalable, and innovative system that strengthens academic integrity.
+Background and Problem Statement
+Description of the Problem or Gap
+Manual peer evaluations are inconsistent and time-consuming, and digital platforms without AI still rely on human judgment. Students may provide unhelpful comments, and teachers struggle to validate large volumes of data.
+Limitations of Existing Solutions
+Google Forms: Collects responses but lacks AI processing.
+Peergrade/Eduflow: Provides rubrics but not AI-driven summarization.
+EvaluMate (Kulkarni et al., 2024): Improves feedback quality but does not manage comment overload.
+PeerBERT (Ma et al., 2022): Classifies comments but does not summarize or rank them.
+Justification for the Proposed Solution
+The system will fill these gaps by integrating AI for classification, summarization, and fairness analysis with Google API-based scalability. This ensures evaluations are consistent, fair, and meaningful.
+Project Objectives
+Main Objectives (SMART Goals)
+1. Peer Evaluation Management Module 
+SMART Goal 1:  Improve the fairness and consistency of student peer evaluations by 30% within the first semester after deployment by implementing a structured peer evaluation system with standardized rubrics, required rating fields, and automatic scoring rules.
+2. AI Feedback Summarization Module
+SMART Goal 2: Achieve at least 70% user satisfaction in feedback clarity and usefulness by generating automated AI-powered summaries and categorized insights within three months of system launch.
+3. Student & Teacher Dashboard Module (AI-Assisted)
+SMART Goal 3: Increase clarity and usefulness of evaluation results for 80% of students and teachers by providing AI-enhanced dashboards with real-time analytics and visual reports within the first semester of use.
+4. Authentication, Security & Privacy Compliance Module
+SMART Goal 4: Ensure 100% compliance with the Philippine Data Privacy Act and achieve secure access for all users through Google OAuth2 authentication and encrypted data handling before the system’s initial deployment
+Specific Objectives (Key Deliverables)
+Objective 1 — Peer Evaluation Management Module 
+Functional Requirements (IPO)
+Input:
+Student-written peer feedback
+Rating scores based on rubric criteria
+Evaluation fields and evaluator information
+Process:
+Validate required fields and prevent incomplete submissions
+Enforce standardized rubrics across all evaluations
+Prevent duplicate or late submissions
+Automatically compute total evaluation scores
+Store evaluation records in the database
+Allow teachers to view, filter, and download evaluations
+Output:
+Completed evaluation records
+Total score per evaluation
+Teacher evaluation summary table
+Confirmation messages for submitted evaluations
+Non-Functional Requirements:
+Form submission within ≤ 1 second
+User-friendly interface for mobile and desktop
+Secure role-based access control
+Data privacy compliance with the Philippine Data Privacy Act
+Objective 2 — AI Feedback Summarization Module
+Functional Requirements (IPO)
+Input: All comments submitted by peers for a single student.
+Process:
+Summarization using NLP techniques
+Categorization of comments (strengths, weaknesses, suggestions)
+Redundancy detection to reduce repetitive feedback
+Output:
+Automatically generated summarized report
+Highlighted key points
+Student-readable insights page
+Non-Functional Requirements:
+Summaries written in clear, readable language
+Summary generation time ≤ 2 seconds
+No raw data exposed to unauthorized users
+Objective 3 — Student & Teacher Dashboard Module (AI-Assisted)
+Functional Requirements (IPO)
+Input:
+AI results, evaluation scores, and system analytics
+Process:
+Data aggregation and visualization
+Real-time dashboard updates
+Role-based views for students and teachers
+Output:
+Graphs, charts, and summaries
+Student evaluation history
+Teacher class-level analytics
+Non-Functional Requirements:
+Mobile-responsive UI (React)
+Dashboard loads in ≤ 1.5 seconds
+99% uptime with cloud hosting (Google Cloud)
+Objective 4 — Authentication, Security & Privacy Module
+Functional Requirements (IPO)
+Input:
+User Google credentials
+Login requests
+Access roles
+Process:
+Google OAuth2 authentication
+JWT token generation
+Role verification (student, teacher, admin)
+Output:
+Secure session token
+Successful login/logout confirmation
+Restricted access to protected pages
+Non-Functional Requirements:
+End-to-end encryption (SSL/TLS)
+Full compliance with the Philippine Data Privacy Act
+Authentication success rate ≥ 99%
+Documentation:
+Software Requirements Specification (SRS)
+Software Design Document (SDD)
+Software Project Management Plan (SPMP)
+Testing documents (test plans and results)
+Final Project Paper (ACM format)
+Scope and Limitations
+In Scope:
+AI-assisted peer and self-evaluations.
+Summarization and sentiment analysis of comments.
+Dashboards for real-time reporting.
+Limitations:
+Requires stable internet access.
+Initial deployment limited to pilot institutions.
+AI accuracy will improve with larger datasets over time.
+Proposed Solution and Methodology
+Overview of the Software
+A web-based platform where students conduct self- and peer-evaluations, and teachers access summarized reports. AI modules analyze comments, while Google APIs handles authentication and integration.
+Technologies and Platforms
+Frontend: React.js (responsive UI).
+Backend: Spring Boot (Java) with REST APIs.
+Database: MySQL/PostgreSQL.
+AI/NLP Module: Python microservices 
+APIs: Google APIs for login, storage, and deployment.
+Security: OAuth2, JWT, SSL/TLS
+Development Approach
+Agile methodology with iterative sprints, pilot testing, and user-driven refinements.
+Target Users, Customers, Beneficiaries, and Partners
+Primary Users: Students conducting evaluations.
+Secondary Users: Teachers validating feedback.
+Beneficiaries: Schools and universities adopting AI-enhanced evaluation.
+Partners: IT departments, Google Cloud services.
+Technical Requirements
+Hardware and Software Needs
+Cloud-hosted backend server.
+Relational database (MySQL/PostgreSQL).
+Web browsers and mobile devices for access.
+Security and Infrastructure Considerations
+Role-based access control.
+Encrypted data storage and transmission.
+Deployment on Google Cloud for scalability.
+Evaluation and Success Metrics
+Key Performance Indicators (KPIs):
+≥80% student satisfaction in surveys.
+≥25% reduction in teacher workload.
+≥30% improvement in evaluation fairness and consistency.
+100% compliance with privacy laws.
+Testing and Validation Strategies:
+Beta testing with pilot groups.
+Surveys and interviews for feedback.
+A/B testing (AI-supported vs. traditional peer evaluation).
+Load testing for scalability.
+References
+Kulkarni, C., Khosravi, H., & Gehringer, E. (2024). EvaluMate: Using AI to support students’ feedback provision in peer assessment for writing. Computers & Education.    https://www.sciencedirect.com/science/article/abs/pii/S1075293524000576
+Louie, J. (2025). The good, bad, and ugly of comment prompts: Effects on length and helpfulness of peer feedback. International Journal of Educational Technology in Higher Education. https://educationaltechnologyjournal.springeropen.com/articles/10.1186/s41239-025-00502-8
+Ma, Y., Yuan, Y., & Liu, S. (2022). PeerBERT: Automated characterization of peer review comments across courses. Proceedings of the 53rd ACM Technical Symposium on Computer Science Education, 350–358. https://dl.acm.org/doi/10.1145/3506860.3506892
+Nazir, S., & Hussain, A. (2021). Sentiment analysis of students’ feedback with NLP and deep learning: A systematic mapping study. Applied Sciences, 11(9), 3986. https://www.mdpi.com/2076-3417/11/9/3986
+Cheng, L., & Wu, H. (2020). The development of an online peer assessment tool using Google applications. Proceedings of the 28th ACM Conference on User Modeling, Adaptation and Personalization, 274–283. https://dl.acm.org/doi/abs/10.1145/3429630.3429638
+Topping, K., Gehringer, E., Khosravi, H., Gudipati, R., & Jadhav, S. (2025). Enhancing peer assessment with artificial intelligence. International Journal of Educational Technology in Higher Education, 22(1), 1–25. https://educationaltechnologyjournal.springeropen.com/articles/10.1186/s41239-024-00501-1
