@@ -1,0 +1,128 @@
+/* ============================================================================
+   STUDENT DASHBOARD STYLES
+   ============================================================================ */
+
+.student-dashboard {
+  @apply min-h-screen bg-gray-950 text-white p-8;
+}
+
+.student-header {
+  @apply flex justify-between items-center mb-8;
+}
+
+.student-header-title {
+  @apply text-3xl font-bold;
+}
+
+.student-header-subtitle {
+  @apply text-gray-400;
+}
+
+.student-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6 mb-8;
+}
+
+.student-score-card {
+  @apply col-span-1;
+}
+
+.student-score-header {
+  @apply flex items-center justify-between mb-4;
+}
+
+.student-score-title {
+  @apply text-lg font-semibold;
+}
+
+.student-score-icon {
+  @apply w-5 h-5 text-teal-400;
+}
+
+.student-score-circle-container {
+  @apply relative w-32 h-32 mx-auto;
+}
+
+.student-score-value {
+  @apply text-4xl font-bold;
+}
+
+.student-score-participation {
+  @apply text-center text-gray-400 mt-4;
+}
+
+.student-trend-card {
+  @apply col-span-2;
+}
+
+.student-trend-title {
+  @apply text-lg font-semibold mb-4;
+}
+
+.student-trend-chart {
+  @apply h-40 flex items-end gap-2;
+}
+
+.student-trend-bar {
+  @apply flex-1 bg-gradient-to-t from-teal-500/50 to-purple-500/50 rounded-t-lg;
+}
+
+.student-summary-card {
+  @apply mb-8;
+}
+
+.student-summary-header {
+  @apply flex items-center gap-3 mb-4;
+}
+
+.student-summary-icon {
+  @apply w-6 h-6 text-yellow-400;
+}
+
+.student-summary-title {
+  @apply text-xl font-semibold;
+}
+
+.student-summary-grid {
+  @apply grid md:grid-cols-3 gap-6;
+}
+
+.student-summary-section-title {
+  @apply font-medium mb-2 flex items-center gap-2;
+}
+
+.student-summary-section-title-teal {
+  @apply text-teal-400;
+}
+
+.student-summary-section-title-yellow {
+  @apply text-yellow-400;
+}
+
+.student-summary-section-title-purple {
+  @apply text-purple-400;
+}
+
+.student-summary-icon-small {
+  @apply w-4 h-4;
+}
+
+.student-summary-text {
+  @apply text-gray-300 text-sm;
+}
+
+.student-summary-themes {
+  @apply flex flex-wrap gap-2;
+}
+
+.student-summary-theme {
+  @apply px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs;
+}
+
+.student-actions {
+  @apply flex gap-4;
+}
+
+.student-action-icon {
+  @apply w-4 h-4 mr-2;
+}
+

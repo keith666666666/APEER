@@ -1,0 +1,17 @@
+/* ============================================================================
+   MAIN STYLESHEET - Imports all CSS files
+   ============================================================================ */
+
+@import './styles/base.css';
+
+/* Component Styles */
+@import './styles/components/button.css';
+@import './styles/components/card.css';
+@import './styles/components/input.css';
+@import './styles/components/modal.css';
+
+/* Page Styles */
+@import './styles/pages/landing.css';
+@import './styles/pages/student-dashboard.css';
+@import './styles/pages/teacher-dashboard.css';
+@import './styles/pages/admin-dashboard.css';

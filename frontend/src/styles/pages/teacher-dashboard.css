@@ -1,0 +1,124 @@
+/* ============================================================================
+   TEACHER DASHBOARD STYLES
+   ============================================================================ */
+
+.teacher-dashboard {
+  @apply min-h-screen bg-gray-950 text-white p-8;
+}
+
+.teacher-header {
+  @apply flex justify-between items-center mb-8;
+}
+
+.teacher-header-title {
+  @apply text-3xl font-bold;
+}
+
+.teacher-header-subtitle {
+  @apply text-gray-400;
+}
+
+.teacher-header-actions {
+  @apply flex gap-3;
+}
+
+.teacher-stats-grid {
+  @apply grid grid-cols-1 md:grid-cols-4 gap-6 mb-8;
+}
+
+.teacher-stat-icon {
+  @apply w-8 h-8 mb-2;
+}
+
+.teacher-stat-icon-teal {
+  @apply text-teal-400;
+}
+
+.teacher-stat-icon-purple {
+  @apply text-purple-400;
+}
+
+.teacher-stat-icon-green {
+  @apply text-green-400;
+}
+
+.teacher-stat-icon-red {
+  @apply text-red-400;
+}
+
+.teacher-stat-value {
+  @apply text-3xl font-bold;
+}
+
+.teacher-stat-label {
+  @apply text-gray-400 text-sm;
+}
+
+.teacher-table-card {
+  @apply mb-8;
+}
+
+.teacher-table-title {
+  @apply text-xl font-semibold mb-6;
+}
+
+.teacher-table-wrapper {
+  @apply overflow-x-auto;
+}
+
+.teacher-table {
+  @apply w-full;
+}
+
+.teacher-table-header {
+  @apply border-b border-white/10;
+}
+
+.teacher-table-header-cell {
+  @apply text-left py-3 px-4 text-gray-400 font-medium;
+}
+
+.teacher-table-row {
+  @apply border-b border-white/5 hover:bg-white/5 transition-colors;
+}
+
+.teacher-table-cell {
+  @apply py-4 px-4;
+}
+
+.teacher-table-score-badge {
+  @apply px-3 py-1 bg-teal-500/20 text-teal-300 rounded-full text-sm;
+}
+
+.teacher-table-score-badge-flagged {
+  @apply px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm;
+}
+
+.teacher-table-status-icon {
+  @apply w-5 h-5 text-green-400;
+}
+
+.teacher-table-status-icon-flagged {
+  @apply w-5 h-5 text-red-400;
+}
+
+.teacher-table-flag-group {
+  @apply relative;
+}
+
+.teacher-table-flag-group:hover .teacher-table-flag-tooltip {
+  display: block;
+}
+
+.teacher-table-flag-tooltip {
+  @apply absolute left-0 top-8 hidden bg-gray-800 border border-red-500/50 rounded-lg p-3 w-64 z-10;
+}
+
+.teacher-table-flag-tooltip-text {
+  @apply text-xs text-red-300;
+}
+
+.teacher-action-icon {
+  @apply w-4 h-4 mr-2;
+}
+

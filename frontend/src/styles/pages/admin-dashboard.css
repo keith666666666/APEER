@@ -1,0 +1,88 @@
+/* ============================================================================
+   ADMIN DASHBOARD STYLES
+   ============================================================================ */
+
+.admin-dashboard {
+  @apply min-h-screen bg-gray-950 text-white p-8;
+}
+
+.admin-header {
+  @apply flex justify-between items-center mb-8;
+}
+
+.admin-header-title {
+  @apply text-3xl font-bold;
+}
+
+.admin-header-subtitle {
+  @apply text-gray-400;
+}
+
+.admin-table-card {
+  /* Card styles handled by Card component */
+}
+
+.admin-table-title {
+  @apply text-xl font-semibold mb-6;
+}
+
+.admin-table-wrapper {
+  @apply overflow-x-auto;
+}
+
+.admin-table {
+  @apply w-full;
+}
+
+.admin-table-header {
+  @apply border-b border-white/10;
+}
+
+.admin-table-header-cell {
+  @apply text-left py-3 px-4 text-gray-400 font-medium;
+}
+
+.admin-table-row {
+  @apply border-b border-white/5 hover:bg-white/5 transition-colors;
+}
+
+.admin-table-cell {
+  @apply py-4 px-4;
+}
+
+.admin-table-cell-email {
+  @apply text-gray-400 text-sm;
+}
+
+.admin-role-badge {
+  @apply px-3 py-1 rounded-full text-xs;
+}
+
+.admin-role-badge-teacher {
+  @apply bg-purple-500/20 text-purple-300;
+}
+
+.admin-role-badge-student {
+  @apply bg-teal-500/20 text-teal-300;
+}
+
+.admin-status-badge {
+  @apply px-3 py-1 rounded-full text-xs;
+}
+
+.admin-status-badge-active {
+  @apply bg-green-500/20 text-green-300;
+}
+
+.admin-status-badge-suspended {
+  @apply bg-red-500/20 text-red-300;
+}
+
+.admin-action-button {
+  @apply text-sm py-2 px-4;
+}
+
+.admin-action-icon {
+  @apply w-4 h-4 mr-2;
+}
+

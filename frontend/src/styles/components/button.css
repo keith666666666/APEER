@@ -1,0 +1,24 @@
+/* ============================================================================
+   BUTTON COMPONENT STYLES
+   ============================================================================ */
+
+.btn {
+  @apply px-6 py-3 rounded-xl font-medium transition-all;
+}
+
+.btn-primary {
+  @apply bg-teal-500 hover:bg-teal-400 text-white shadow-lg shadow-teal-500/50;
+}
+
+.btn-secondary {
+  @apply bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-500/50;
+}
+
+.btn-ghost {
+  @apply bg-white/5 hover:bg-white/10 text-white border border-white/10;
+}
+
+.btn-danger {
+  @apply bg-red-600 hover:bg-red-500 text-white;
+}
+

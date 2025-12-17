@@ -1,0 +1,110 @@
+/* ============================================================================
+   MODAL COMPONENT STYLES
+   ============================================================================ */
+
+.modal-overlay {
+  @apply fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4;
+}
+
+.modal-overlay-scroll {
+  @apply fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto;
+}
+
+.modal {
+  @apply bg-gray-900 border border-white/10 rounded-3xl p-8;
+}
+
+.modal-title {
+  @apply text-2xl font-bold mb-6;
+}
+
+.modal-content {
+  @apply space-y-6;
+}
+
+.modal-actions {
+  @apply flex gap-3 mt-8;
+}
+
+/* Evaluation Form Modal */
+.eval-form-rating-section {
+  @apply space-y-6 mb-6;
+}
+
+.eval-form-rating-label {
+  @apply text-sm text-gray-400 mb-3 block capitalize;
+}
+
+.eval-form-rating-pills {
+  @apply flex gap-2;
+}
+
+.eval-form-rating-pill {
+  @apply w-12 h-12 rounded-xl font-semibold transition-all;
+}
+
+.eval-form-rating-pill-inactive {
+  @apply bg-white/5 text-gray-400 hover:bg-white/10;
+}
+
+.eval-form-rating-pill-active {
+  @apply bg-gradient-to-br from-teal-500 to-purple-500 text-white shadow-lg;
+}
+
+.eval-form-textarea-wrapper {
+  @apply relative;
+}
+
+.eval-form-analyzing {
+  @apply absolute right-4 top-12;
+}
+
+.eval-form-tags {
+  @apply mt-4 flex gap-2 flex-wrap;
+}
+
+.eval-form-tag {
+  @apply px-3 py-1 bg-teal-500/20 text-teal-300 rounded-full text-sm;
+}
+
+/* Create Activity Modal */
+.activity-form-field {
+  @apply space-y-6;
+}
+
+.activity-form-rubric-section {
+  @apply space-y-3;
+}
+
+.activity-form-rubric-label {
+  @apply text-sm text-gray-400;
+}
+
+.activity-form-rubric-list {
+  @apply space-y-2;
+}
+
+.activity-form-rubric-item {
+  @apply p-4 rounded-xl border cursor-pointer transition-all;
+}
+
+.activity-form-rubric-item-inactive {
+  @apply border-white/10 bg-white/5 hover:bg-white/10;
+}
+
+.activity-form-rubric-item-active {
+  @apply border-teal-500 bg-teal-500/10;
+}
+
+.activity-form-rubric-title {
+  @apply font-medium mb-2;
+}
+
+.activity-form-rubric-criteria {
+  @apply flex gap-2 flex-wrap;
+}
+
+.activity-form-rubric-criterion {
+  @apply text-xs text-gray-400;
+}
+

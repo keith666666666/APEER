@@ -1,0 +1,20 @@
+/* ============================================================================
+   INPUT & TEXTAREA COMPONENT STYLES
+   ============================================================================ */
+
+.input-wrapper {
+  @apply space-y-2;
+}
+
+.input-label {
+  @apply text-sm text-gray-400;
+}
+
+.input-field {
+  @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all outline-none;
+}
+
+.textarea-field {
+  @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all outline-none resize-none;
+}
+

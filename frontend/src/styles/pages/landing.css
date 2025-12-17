@@ -1,0 +1,221 @@
+/* ============================================================================
+   LANDING PAGE STYLES
+   ============================================================================ */
+
+.landing-page {
+  @apply min-h-screen bg-gray-950 text-white overflow-hidden;
+}
+
+.landing-aurora-bg {
+  @apply fixed inset-0 -z-10;
+}
+
+.landing-aurora-base {
+  @apply absolute inset-0 bg-gradient-to-br from-purple-900/20 via-gray-950 to-teal-900/20;
+}
+
+.landing-nav {
+  @apply relative z-10 px-8 py-6 flex justify-between items-center;
+}
+
+.landing-logo {
+  @apply text-2xl font-bold bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent;
+}
+
+.landing-hero {
+  @apply relative z-10 container mx-auto px-8 py-20;
+}
+
+.landing-hero-content {
+  @apply text-center max-w-4xl mx-auto space-y-6;
+}
+
+.landing-title {
+  @apply text-7xl font-bold leading-tight;
+}
+
+.landing-title-gradient-1 {
+  @apply bg-gradient-to-r from-white via-teal-200 to-purple-200 bg-clip-text text-transparent;
+}
+
+.landing-title-gradient-2 {
+  @apply bg-gradient-to-r from-purple-200 via-teal-200 to-white bg-clip-text text-transparent;
+}
+
+.landing-subtitle {
+  @apply text-xl text-gray-400;
+}
+
+.landing-cta {
+  @apply flex gap-4 justify-center pt-8;
+}
+
+.landing-bento-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6 mt-24;
+}
+
+.landing-feature-card {
+  @apply h-64;
+}
+
+.landing-feature-icon {
+  @apply w-8 h-8 mb-4;
+}
+
+.landing-feature-icon-teal {
+  @apply text-teal-400;
+}
+
+.landing-feature-icon-purple {
+  @apply text-purple-400;
+}
+
+.landing-feature-icon-yellow {
+  @apply text-yellow-400;
+}
+
+.landing-feature-title {
+  @apply text-xl font-semibold mb-2;
+}
+
+.landing-feature-desc {
+  @apply text-gray-400 text-sm mb-4;
+}
+
+.landing-feature-tags {
+  @apply flex gap-2 flex-wrap;
+}
+
+.landing-tag {
+  @apply px-3 py-1 rounded-full text-xs;
+}
+
+.landing-tag-teal {
+  @apply bg-teal-500/20 text-teal-300;
+}
+
+.landing-tag-purple {
+  @apply bg-purple-500/20 text-purple-300;
+}
+
+.landing-chart-bars {
+  @apply h-24 flex items-end gap-1;
+}
+
+.landing-chart-bar {
+  @apply flex-1 rounded-t;
+}
+
+.landing-feature-list {
+  @apply space-y-2 text-sm text-gray-300;
+}
+
+.landing-feature-list-item {
+  @apply flex items-start gap-2;
+}
+
+.landing-feature-list-icon {
+  @apply w-4 h-4 mt-0.5 flex-shrink-0;
+}
+
+.landing-feature-list-icon-teal {
+  @apply text-teal-400;
+}
+
+.landing-feature-list-icon-yellow {
+  @apply text-yellow-400;
+}
+
+.landing-team-section {
+  @apply mt-24;
+}
+
+.landing-team-title {
+  @apply text-3xl font-bold text-center mb-12;
+}
+
+.landing-team-grid {
+  @apply grid grid-cols-2 md:grid-cols-5 gap-4;
+}
+
+.landing-team-card {
+  @apply text-center p-4;
+}
+
+.landing-team-avatar {
+  @apply w-12 h-12 bg-gradient-to-br from-teal-400 to-purple-400 rounded-full mx-auto mb-3;
+}
+
+.landing-team-name {
+  @apply text-sm font-medium;
+}
+
+/* Auth Modal */
+.auth-modal-overlay {
+  @apply fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4;
+}
+
+.auth-modal {
+  @apply bg-gray-900 border border-white/10 rounded-3xl p-8 max-w-md w-full;
+}
+
+.auth-tabs {
+  @apply flex gap-2 mb-6 bg-white/5 p-1 rounded-xl;
+}
+
+.auth-tab {
+  @apply flex-1 py-2 rounded-lg font-medium transition-all text-gray-400 hover:text-white;
+}
+
+.auth-tab-active {
+  @apply bg-teal-500 text-white;
+}
+
+.auth-form-title {
+  @apply text-2xl font-bold mb-6;
+}
+
+.auth-role-grid {
+  @apply grid grid-cols-2 gap-3;
+}
+
+.auth-role-button {
+  @apply p-4 rounded-xl border transition-all;
+}
+
+.auth-role-button-inactive {
+  @apply border-white/10 bg-white/5 hover:bg-white/10;
+}
+
+.auth-role-button-student {
+  @apply border-teal-500 bg-teal-500/10;
+}
+
+.auth-role-button-teacher {
+  @apply border-purple-500 bg-purple-500/10;
+}
+
+.auth-role-icon {
+  @apply w-6 h-6 mx-auto mb-2;
+}
+
+.auth-role-icon-student {
+  @apply text-teal-400;
+}
+
+.auth-role-icon-teacher {
+  @apply text-purple-400;
+}
+
+.auth-role-label {
+  @apply text-sm font-medium;
+}
+
+.auth-helper-text {
+  @apply text-xs text-gray-500;
+}
+
+.auth-actions {
+  @apply flex gap-3 mt-6;
+}
+

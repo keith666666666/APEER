@@ -1,0 +1,12 @@
+/* ============================================================================
+   CARD COMPONENT STYLES
+   ============================================================================ */
+
+.card {
+  @apply relative rounded-3xl bg-gray-900/60 backdrop-blur-xl border border-white/10 p-6 overflow-hidden;
+}
+
+.card-spotlight-overlay {
+  @apply pointer-events-none absolute inset-0 opacity-30 transition-opacity duration-300;
+}
+
